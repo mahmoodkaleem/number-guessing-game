@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="practice.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <h1>Number Guessing Game</h1>
+    </div>
+    <div id="input-control">
+      <label for="input">Guess a Random Number between 1 to 10</label>
+      <input type="number" id="input" placeholder="Enter Random Number">
+      <small id="match-unmatch"></small>
+    </div>
+    <button id="button" type="Submit"><b>Check</b></button>
+    <button class="d-none" id="reset">Reset</button>
+
+  </div>
+
+  <script>
+    let input; 
+    let small;
+    let button; 
+    let resetButton; 
+    let randomvalue; 
+    let count = 0;
+
+    window.onload = function () {
+      input = document.getElementById('input');
+      small = document.getElementById('match-unmatch')
+      button = document.getElementById("button");
+      resetButton = document.getElementById("reset");
+      randomvalue = getRandomNumber(1, 50);
+
+      resetButton.addEventListener('click', e => {
+        reload();
+      });
+
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        checkInputs(input.value);
+      });
+    }
+    
+
+
+    function checkInputs(guessedNumber) {
+      count++;
+
+      if (guessedNumber < randomvalue) {
+        small.innerHTML = `Your Guess is Lower than actual number`;
+        return;
+      }
+
+      if(guessedNumber > randomvalue){
+        small.innerHTML = `Your Guess is Grater than actual number`;
+        return;
+      }
+
+      small.innerHTML = `correct guessing, you guess the number in ${count} steps `
+      resetButton.classList.remove('d-none');
+    }
+
+    function getRandomNumber(lower, upper) {
+      return lower + Math.floor(Math.random() * upper);
+    }
+
+    function reload() {
+      window.location.reload();
+    }
+  </script>
+</body>
+
+</html>
